@@ -4,7 +4,7 @@ using namespace std;
 
 const int maxn=1e5+10;
 int prime[maxn];
-bool vis[maxn];
+bool vis[maxn*1000];
 
 void init(){
 	int cnt=0;
