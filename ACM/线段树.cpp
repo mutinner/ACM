@@ -14,13 +14,28 @@ struct sgetree{
 vector<sgetree> cnt;
 vector<ll> add;
 
+void pushup(int x){
+	cnt[x].sum=cnt[x*2].sum+cnt[x*2+1].sum;
+}
+
+void pushdown(int x){
+	if(add[x]!=0){
+		add[x*2]+=add[x];   add[x*2+1]+=add[x];
+		int mid=(cnt[x].L+cnt[x].R)>>1;
+		cnt[x*2].sum+=add[x]*(mid-cnt[x].L+1);
+		cnt[x*2+1].sum+=add[x]*(cnt[x].R-mid);
+		add[x]=0;
+	}
+}
+
 void build(int x,int L,int R){
 	cnt[x]=sgetree{L,R,0,-inf,inf};
- 	add[x]=0;
+	add[x]=0;
 	if(L==R)	return ;
 	int mid=(L+R)>>1;
 	build(x*2,L,mid);
 	build(x*2+1,mid+1,R);
+	pushup(x);
 }
 
 void insert(int x,int pos,ll num){
@@ -44,35 +59,13 @@ ll querysum(int x,int L,int R){
 	else	return querysum(x*2,L,mid)+querysum(x*2+1,mid+1,R);
 }
 
-ll querymax(int x,int L,int R){
-	if(L==cnt[x].L&&R==cnt[x].R)	return cnt[x].maxn;
-	int mid=(cnt[x].L+cnt[x].R)>>1;
-	if(R<=mid)  return querymax(x*2,L,R);
-	else if(L>mid)  return querymax(x*2+1,L,R);
-	else    return max(querymax(x*2,L,mid),querymax(x*2+1,mid+1,R));
-}
-
-void pushup(int x){
-	cnt[x].sum=cnt[x*2].sum+cnt[x*2+1].sum;
-}
-
-void pushdown(int x){
-	if(add[x]!=0){
-		add[x*2]+=add[x];   add[x*2+1]+=add[x];
-		int mid=(cnt[x].L+cnt[x].R)>>1;
-		cnt[x*2].sum+=add[x]*(mid-cnt[x].L+1);
-		cnt[x*2+1].sum+=add[x]*(cnt[x].R-mid);
-		add[x]=0;
-	}
-}
-
 void update(int x,int L,int R,ll addv){
 	if(L==cnt[x].L&&R==cnt[x].R){
 		add[x]+=addv;
 		cnt[x].sum+=addv*(R-L+1);
 		return ;
 	}
-	pushdown(x,L,R);
+	pushdown(x);
 	int mid=(cnt[x].L+cnt[x].R)>>1;
 	if(R<=mid)  update(x*2,L,R,addv);
 	else if(L>mid)  update(x*2+1,L,R,addv);
@@ -85,7 +78,7 @@ void update(int x,int L,int R,ll addv){
 
 ll query(int x,int L,int R){
 	if(L==cnt[x].L&&R==cnt[x].R)    return cnt[x].sum;
-	pushdown(x,L,R);
+	pushdown(x);
 	int mid=(cnt[x].L+cnt[x].R)>>1;
 	if(R<=mid)  return query(x*2,L,R);
 	else if(L>mid)  return query(x*2+1,L,R);
