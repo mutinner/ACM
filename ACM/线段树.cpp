@@ -71,7 +71,7 @@ void update(int x,int L,int R,ll val){
 	else if(L>mid)  update(x<<1|1,L,R,val);
 	else {
 		update(x<<1,L,mid,val);
-		update(x<1|1,mid+1,R,val);
+		update(x<<1|1,mid+1,R,val);
 	}
 	pushup(x);
 }
