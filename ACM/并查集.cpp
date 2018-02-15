@@ -1,9 +1,13 @@
 #include<cstdio>
 #include<cstring>
-#include<vector>
 using namespace std;
 
-vector<int> pre;
+const int maxn=1e5+10;
+int pre[maxn];
+
+void init(){
+	for(int i=0;i<maxn;i++)	pre[i]=i;
+}
 
 int find(int x){
 	int u=x,v;
