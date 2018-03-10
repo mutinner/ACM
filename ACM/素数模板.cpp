@@ -18,11 +18,3 @@ void init(){
 		}
 	}
 }
-
-int main(){
-	init();
-	for(int i=1;i<=100;i++){
-		printf("%d%c",prime[i]," \n"[i%10==0]);
-	}
-	return 0;
-}
