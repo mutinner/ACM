@@ -42,7 +42,7 @@ ll pow(ll a,ll b){
 	return ans;
 }
 
-ll comb(ll n,llm){
+ll comb(ll n,ll m){
 	if(m>n)	return 0;
 	return fac[n]*pow(fac[m]*fac[n-m],mod-2)%mod;
 }
