@@ -21,8 +21,9 @@ while getopts "lr:" opt; do
 		let num--
 		case $opt in
 			l)
-				echo ${arr[num]}
-				vim ${arr[num]}
+				if [ $num -ge 0 ]; then
+					vim ${arr[num]}
+				fi
 				;;
 			r)
 				if [ $num -ge $OPTARG ]; then
@@ -31,26 +32,33 @@ while getopts "lr:" opt; do
 				fi
 				;;
 		esac
+		if [ -f ${arr[num]:0:23} ]; then
+			rm ${arr[num]:0:23}
+		fi
 	fi	
 done
 
 if [ $flag -eq 0 ]; then
 	cd $tim
-	file=$(date +%T)".cpp"
-	vim $file
+	file=$(date +%T)
+	cpp=$file'.cpp'
+	vim $cpp
 	cd ~/Code/$tim
 	cur=1
-	if [ -f $file ]; then
+	if [ -f $cpp ]; then
 		while read line
 		do
 			let cur++
-		done <$file
+		done <$cpp
 		if [ $cur -lt 14 ]; then
-			rm $file
+			rm $cpp
 			cd ~/Code
 			if [ ! "$(ls -A $tim)" ]; then
 				rmdir $tim
 			fi
 		fi
+	fi
+	if [ -f $file ]; then
+		rm $file
 	fi
 fi
