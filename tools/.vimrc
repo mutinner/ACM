@@ -11,11 +11,11 @@ set shiftwidth=4
 set hls
 set lbr
 set t_Co=256
-"hi MatchParen ctermbg=DarkRed guibg=lightblue
 
 map <C-c> ggVG"+y
 
 map <F5> :call Run()<CR>
+
 func! Run()
 	exec "w"
 	exec "!g++ -std=c++11 -Wall % -o  %<"  
@@ -31,4 +31,5 @@ func SetTitle()
 	let l = l + 1 | call setline(l,' *************************************************** */')
 	let l = l + 1 | call setline(l,'')
 	let l = l + 1 | call setline(l,'')
+	exec "7"
 endfunc
