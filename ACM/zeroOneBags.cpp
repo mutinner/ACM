@@ -26,7 +26,7 @@ int zeroOneBag( vector< pair< int, int > >& cnt, int w ) {
 
 int zeroOneBagSwap( vector< pair< int, int > >& cnt, int w ) {
 	int sum = accumulate( cnt.begin(), cnt.end(), 0, []( int val, pair< int, int > x ) {
-			return x.first;
+			return x.second;
 			} );
 	const int inf = 1 << 30;
 	int sz = cnt.size();
@@ -36,8 +36,8 @@ int zeroOneBagSwap( vector< pair< int, int > >& cnt, int w ) {
 			dp[ j ] = min( dp[ j ], dp[ j - cnt[ i ].second ] + cnt[ i ].first );
 		}
 	}
-	for ( int i = num; i >= 0; i-- ) {
-		if ( dp [ i ] < w ) {
+	for ( int i = sum; i >= 0; i-- ) {
+		if ( dp [ i ] <= w ) {
 			return i;
 		}
 	}

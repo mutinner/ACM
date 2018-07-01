@@ -29,7 +29,7 @@ public:
 int main() {
 	int n, k;	cin >> n >> k;
 	for ( auto it = constructSubset( n, k ); it.x != 0; it.next_subset() ) {
-		cout << bitset< 10 >( it.x ) << endl;
+		//cout << bitset< 10 >( it.x ) << endl;
 	}
 	return 0;
 }
