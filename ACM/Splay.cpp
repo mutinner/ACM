@@ -29,10 +29,6 @@ public :
 	}
 };
 
-void hhh() {
-	cout << " hhh " << endl;
-}
-
 class Splay {
 public :
 	node *tot, *root, *arr, *zero;
@@ -115,7 +111,33 @@ public :
 		splay( ls );
 	}
 
+	void insert( int pos, node* x ) {
+		node* L = find( pos );
+		node* R = find( pos + 1 );
+		splay( L );
+		splay( R, L );
+		x -> fa = R;
+		R -> ch[ 0 ] = x;
+		R -> pushup();
+		L -> pushup();
+		splay( x );
+	}
+
+	node* erase( int x, int y ) {
+		node* L = find( x - 1 );
+		node* R = find( y + 1 );
+		splay( L );
+		splay( R, L );
+		node* ans = R -> ch[ 0 ];
+		R -> ch[ 0 ] -> fa = zero;
+		R -> ch[ 0 ] = zero;
+		R -> pushup();
+		L -> pushup();
+		return ans;
+	}
+
 	void show( node* x, int h = 1 ) {
+		cout << h << ' ' << x -> val << endl;
 		for ( auto& it : x -> ch ) {
 			if ( it != zero ) show( it, h + 1 );
 		}
@@ -131,11 +153,7 @@ int main() {
 	vector< int > arr( n + 2 );
 	iota( arr.begin(), arr.end(), 0 );
 	Splay cnt;	cnt.init( arr );
-	cnt.bug();
-	while ( 1 ) {
-		int L, R;	cin >> L >> R;
-		cnt.reverse( L + 1, R + 1 );
-		cnt.bug();
-	}
+	for ( int i = 1; i <= n; i++ ) cout << cnt.find( i + 1 ) -> val << " \n"[ i == n ];
 	return 0;
 }
+
