@@ -34,6 +34,15 @@ public :
 	node *tot, *root, *arr, *zero;
 	int sz;
 
+	Splay( vector< int >& a ) {
+		arr = new node[ maxn * 32 ];
+		tot = arr + 1;
+		zero = arr;
+		zero -> val = -1;
+		sz = a.size();
+		root = build( 1, a.size(), NULL, a );
+	}
+
 	void init( vector< int >& a ) {
 		arr = new node[ maxn * 32 ];
 		tot = arr + 1;
@@ -152,7 +161,7 @@ int main() {
 	int n;	cin >> n;
 	vector< int > arr( n + 2 );
 	iota( arr.begin(), arr.end(), 0 );
-	Splay cnt;	cnt.init( arr );
+	Splay cnt( arr );	cnt.init( arr );
 	for ( int i = 1; i <= n; i++ ) cout << cnt.find( i + 1 ) -> val << " \n"[ i == n ];
 	return 0;
 }
