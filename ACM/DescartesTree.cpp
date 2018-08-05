@@ -22,9 +22,9 @@ class DTree {
 	node *arr, *root;
 
 	DTree( vector< int >& a ) {
-			arr = new node[ a.size() ];
-			root = build( a );
-		}
+		arr = new node[ a.size() ];
+		root = build( a );
+	}
 
 	node* build( vector< int >& a ) {
 		stack< node* > cnt;
