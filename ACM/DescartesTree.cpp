@@ -20,6 +20,7 @@ public :
 };
 
 class DTree {
+public :
 	node *arr, *root;
 
 	DTree( vector< int >& a ) {
