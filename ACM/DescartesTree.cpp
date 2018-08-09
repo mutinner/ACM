@@ -15,6 +15,7 @@ public :
 	void setnode( int index, int val ) {
 		this -> index = index;
 		this -> val = val;
+		this -> L = this -> R = this -> fa = NULL;
 	}
 };
 
@@ -43,6 +44,10 @@ class DTree {
 					break;
 				}
 				cnt.pop();
+				if ( cnt.empty() ) {
+					x -> fa = cur;
+					cur -> L = x;
+				}
 			}
 			cnt.push( cur );
 		}
