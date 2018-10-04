@@ -1,6 +1,13 @@
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdcommenter'
+call vundle#end()
+filetype plugin indent on
 autocmd BufNewFile *.cpp exec ":call SetTitle()"
 syntax on
-filetype indent plugin on
 colorscheme molokai
 set encoding=utf-8
 set ruler
@@ -11,8 +18,9 @@ set shiftwidth=4
 set hls
 set lbr
 set t_Co=256
+let mapleader=","
 
-map <C-c> ggVG"+y
+map <C-c> ggVG=ggVG"+y
 
 map <F5> :call Run()<CR>
 
