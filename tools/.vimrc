@@ -22,12 +22,13 @@ let mapleader=","
 
 map <C-c> ggVG=ggVG"+y
 
-map <F5> :call Run()<CR>
+map <F5> :call Run()<CR><CR>
 
 func! Run()
 	exec "w"
 	exec "!g++ -std=c++14 -O2 -DNDEBUG -Wall % -o %<"  
 	exec "!./%<"  
+	exec ""
 endfunc
 
 func SetTitle()
